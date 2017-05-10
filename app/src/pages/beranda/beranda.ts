@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
 import { Http } from '@angular/http';
 /*
   Generated class for the Beranda page.
@@ -7,6 +7,8 @@ import { Http } from '@angular/http';
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+
+
 @Component({
   selector: 'page-beranda',
   templateUrl: 'beranda.html'
@@ -61,7 +63,7 @@ export class BerandaPage {
    }
 
   baca(idArtikel){
-    this.navCtrl.push(ArtikelBacaPage, idArtikel);
+    //this.navCtrl.push(ArtikelBacaPage, idArtikel);
   }
 
 

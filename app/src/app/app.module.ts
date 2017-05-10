@@ -7,6 +7,10 @@ import { BerandaPage } from '../pages/beranda/beranda';
 import { UndanganPage } from '../pages/undangan/undangan';
 import { TabsPage } from '../pages/tabs/tabs';
 import {LeaderboardPage} from '../pages/leaderboard/leaderboard';
+import { LoginPage } from '../pages/login/login';
+import { Auth } from '../../providers/auth';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -16,6 +20,7 @@ import {LeaderboardPage} from '../pages/leaderboard/leaderboard';
     UndanganPage,
     ProfilPage,
     LeaderboardPage,
+    LoginPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -29,6 +34,7 @@ import {LeaderboardPage} from '../pages/leaderboard/leaderboard';
     UndanganPage,
     ProfilPage,
     LeaderboardPage,
+    LoginPage,
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
