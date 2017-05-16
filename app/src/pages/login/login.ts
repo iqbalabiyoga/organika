@@ -1,55 +1,35 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
+
+import { NavController } from 'ionic-angular';
+
 import { Auth } from '../../providers/auth';
-  
+
+import { TabsPage } from '../tabs/tabs';
+import { MulaiPage } from '../mulai/mulai';
+// import { Storage } from '@ionic-storage';
 
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-user',
+  templateUrl: 'login.html'
 })
-
 export class LoginPage {
-  loading: Loading;
-  registerCredentials = { email: '', password: '' };
- 
-  constructor(private nav: NavController, private auth: Auth, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { }
+  login: {username?: string, password?: string} = {};
+  submitted = false;
 
-/*  public createAccount() {
-    this.nav.push('RegisterPage');
+  constructor(public navCtrl: NavController, public auth: Auth) { }
+
+  onLogin(form: NgForm) {
+    this.submitted = true;
+
+    if (form.valid) {
+      // this.auth.login(this.login.username);
+      this.navCtrl.push(TabsPage);
+    }
   }
- 
-*/
- /* public login() {
-    this.showLoading()
-    this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {        
-        this.nav.setRoot('RegisterPage');
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-      error => {
-        this.showError(error);
-      });
-  }
- */
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
-  }
- 
-  showError(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present(prompt);
-  }
+
+ // onSignup() {
+ //  this.navCtrl.push(MulaiPage);
+ // }
 }

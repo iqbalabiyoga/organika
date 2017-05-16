@@ -7,8 +7,10 @@ import { BerandaPage } from '../pages/beranda/beranda';
 import { UndanganPage } from '../pages/undangan/undangan';
 import { TabsPage } from '../pages/tabs/tabs';
 import {LeaderboardPage} from '../pages/leaderboard/leaderboard';
+import { MulaiPage } from '../pages/mulai/mulai';
 import { LoginPage } from '../pages/login/login';
-import { Auth } from '../../providers/auth';
+import { Auth } from '../providers/auth';
+import { Storage } from '@ionic/storage';
 
 
 @NgModule({
@@ -36,6 +38,9 @@ import { Auth } from '../../providers/auth';
     LeaderboardPage,
     LoginPage,
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    {provide: Storage, useClass: IonicErrorHandler}, 
+    Auth
+  ]
 })
 export class AppModule {}

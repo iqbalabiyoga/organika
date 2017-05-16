@@ -1,58 +1,72 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
-export class User{
-	name: string;
-	email: string;
+import { Events } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
-	constructor(name: string, email: string){
-		this.name =name;
-		this.email = email;
-	}
-}
 
 @Injectable()
 export class Auth {
-	currentUser: User;
-/*
-	public login(credentials){
-		if (credentials.email === null || credentials.password === null){
-			return Observable.throw("Please insert credentials");
-		}
-		else{
-			return Observable.create(observer => {
-				let access = (credentials.password === "pass" && credentials.email === "email");
-				this.currentUser = new User('Simon', 'saimon@devdactic.com');
-				observer.next(access);
-				observer.complete();
-			});
-		}
-	}
-*/
+  _favorites: string[] = [];
+  HAS_LOGGED_IN = 'hasLoggedIn';
+  HAS_SEEN_TUTORIAL = 'hasSeenTutorial';
 
-	public register(credentials){
-		if (credentials.email === null || credentials.password === null){
-			return Observable.throw("Please insert credentials");
-		}
-		else{
-			return Observable.create(observer => {
-				observer.next(true);
-				observer.complete();
-			});
-		}
-	}
+  constructor(
+    public events: Events,
+    public storage: Storage
+  ) {}
 
-	public getUserInfo(): User{
-		return this.currentUser;
-	}
+  hasFavorite(sessionName: string): boolean {
+    return (this._favorites.indexOf(sessionName) > -1);
+  };
 
-	public logout(){
-		return Observable.create(observer => {
-			this.currentUser = null;
-			observer.next(true);
-			observer.complete();
-		});
-	}
+  addFavorite(sessionName: string): void {
+    this._favorites.push(sessionName);
+  };
+
+  removeFavorite(sessionName: string): void {
+    let index = this._favorites.indexOf(sessionName);
+    if (index > -1) {
+      this._favorites.splice(index, 1);
+    }
+  };
+
+  login(username: string): void {
+    this.storage.set(this.HAS_LOGGED_IN, true);
+    this.setUsername(username);
+    this.events.publish('user:login');
+  };
+
+  signup(username: string): void {
+    this.storage.set(this.HAS_LOGGED_IN, true);
+    this.setUsername(username);
+    this.events.publish('user:signup');
+  };
+
+  logout(): void {
+    this.storage.remove(this.HAS_LOGGED_IN);
+    this.storage.remove('username');
+    this.events.publish('user:logout');
+  };
+
+  setUsername(username: string): void {
+    this.storage.set('username', username);
+  };
+
+  getUsername(): Promise<string> {
+    return this.storage.get('username').then((value) => {
+      return value;
+    });
+  };
+
+  hasLoggedIn(): Promise<boolean> {
+    return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
+      return value === true;
+    });
+  };
+
+  checkHasSeenTutorial(): Promise<string> {
+    return this.storage.get(this.HAS_SEEN_TUTORIAL).then((value) => {
+      return value;
+    });
+  };
 }
