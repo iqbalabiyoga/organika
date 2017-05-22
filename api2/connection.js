@@ -7,7 +7,7 @@ function Connection() {
         this.pool = mysql.createPool( {
             host: 'localhost',
             user: 'root',
-            password: 'mastur',
+            password: '',
             database: 'Organika'
         })
     }
