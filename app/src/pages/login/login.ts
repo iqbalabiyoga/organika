@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+import { Http,Headers,RequestOptions } from '@angular/http';
 import { NavController } from 'ionic-angular';
 
 import { Auth } from '../../providers/auth';
@@ -17,15 +17,31 @@ import { MulaiPage } from '../mulai/mulai';
 export class LoginPage {
   login: {username?: string, password?: string} = {};
   submitted = false;
-
-  constructor(public navCtrl: NavController, public auth: Auth) { }
+  
+  headers = new Headers({ 
+                'Content-Type': 'application/json'});
+  options = new RequestOptions({ headers: this.headers});
+  
+  constructor(
+    public navCtrl: NavController, 
+    public auth: Auth,
+    public http: Http) { }
 
   onLogin(form: NgForm) {
     this.submitted = true;
 
     if (form.valid) {
       // this.auth.login(this.login.username);
-      this.navCtrl.push(TabsPage);
+      let input = JSON.stringify({
+        email: this.login.username, 
+        password: this.login.password
+      });
+      this.http.post("http://localhost:2017/login",input,this.options).subscribe(data => {
+        let response = data.json();
+
+        console.log(response);
+        this.navCtrl.push(TabsPage);
+      });
     }
   }
 
