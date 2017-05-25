@@ -1,0 +1,56 @@
+<ion-content class="regis-page" padding>
+	<div class="logo">
+		<img src="assets/icon/organisasi2.jpg" alt="Organika Logo">
+	</div>
+
+	<form #registrasiForm="ngForm" novalidate>
+		<ion-list no-lines>
+			<ion-item>
+				
+				<ion-label stacked color="primary">
+					Username
+				</ion-label>
+
+				<ion-input [(ngModel)]="regis.username" name="username" type="text" #username="ngModel" required>
+				</ion-input>
+
+			</ion-item>
+			
+			<p ion-text [hidden]="username.valid || submitted== false" color="danger" padding-left>
+				Userneme is required 
+			</p>
+
+			<ion-item>
+
+				<ion-label stacked color="primary">
+					First Name
+				</ion-label>
+
+				<ion-input [(ngModel)]="regis.fname" name="fname" type="text" #fname="ngModel" required>
+				</ion-input>
+
+			</ion-item>
+			
+			<p ion-text [hidden]="fname.valid || submitted== false" color="danger" padding-left>
+				First Name is required
+			</p>
+			
+			<ion-item>
+
+				<ion-label stacked color="primary">
+					Last Name
+				</ion-label>
+
+				<ion-input [(ngModel)]="regis.lname" name="lname" type="text" #lname="ngModel" required>
+				</ion-input>
+
+			</ion-item>
+
+			<p ion-text [hidden]="lname.valid|| submitted== false" color="danger" padding-left>
+				Last Name is required
+			</p>
+
+			
+
+	</form>
+</ion-content>

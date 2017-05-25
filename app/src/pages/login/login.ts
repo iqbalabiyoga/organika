@@ -40,7 +40,9 @@ export class LoginPage {
         let response = data.json();
 
         console.log(response);
-        this.navCtrl.push(TabsPage);
+        if(response.message =="ok"){
+          this.navCtrl.push(TabsPage);
+        }
       });
     }
   }
