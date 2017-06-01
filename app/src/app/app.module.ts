@@ -9,8 +9,10 @@ import { TabsPage } from '../pages/tabs/tabs';
 import {LeaderboardPage} from '../pages/leaderboard/leaderboard';
 import { MulaiPage } from '../pages/mulai/mulai';
 import { LoginPage } from '../pages/login/login';
+import { LaporanPage } from '../pages/laporan/laporan';
 import { Auth } from '../providers/auth';
 import { Storage } from '@ionic/storage';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { Storage } from '@ionic/storage';
     ProfilPage,
     LeaderboardPage,
     LoginPage,
+    LaporanPage,
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -37,10 +40,12 @@ import { Storage } from '@ionic/storage';
     ProfilPage,
     LeaderboardPage,
     LoginPage,
+    LaporanPage,
   ],
   providers: [
     {provide: Storage, useClass: IonicErrorHandler}, 
-    Auth
+    Auth,
+    Camera
   ]
 })
 export class AppModule {}
